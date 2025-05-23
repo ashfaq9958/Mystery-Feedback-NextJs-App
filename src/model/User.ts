@@ -1,9 +1,6 @@
-// ////////////////////////////////////////////
-
 import mongoose, { Schema, Document } from "mongoose";
 
-// Subdocument interface (no Document inheritance needed)
-interface IMessage {
+export interface IMessage {
   content: string;
   createdAt: Date;
 }
@@ -24,8 +21,7 @@ const MessageSchema = new Schema<IMessage>(
   { _id: false }
 );
 
-// Main document interface
-export interface IUser extends Document {
+export interface IUser {
   username: string;
   email: string;
   password: string;
@@ -79,11 +75,12 @@ const UserSchema = new Schema<IUser>(
     },
   },
   {
-    timestamps: true, 
+    timestamps: true,
   }
 );
 
-
 const UserModel =
-  mongoose.models.User || mongoose.model<IUser>("User", UserSchema);
+  (mongoose.models.User as mongoose.Model<IUser>) ||
+  mongoose.model<IUser>("User", UserSchema);
+
 export default UserModel;
