@@ -61,10 +61,10 @@ export async function GET(request: Request) {
     return NextResponse.json(
       {
         success: true,
-        message: "Username is available.",
+        message: "Great! This username is available for registration.",
       },
       { status: 200 }
-    );
+    );  
   } catch (error) {
     console.error("Error checking username availability:", error);
     return NextResponse.json(
