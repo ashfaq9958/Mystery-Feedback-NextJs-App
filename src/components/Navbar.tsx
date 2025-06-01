@@ -4,7 +4,7 @@ import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import Image from "next/image";
-import { LogIn } from "lucide-react";
+import { LogIn, LogOut } from "lucide-react";
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -47,6 +47,7 @@ const Navbar = () => {
                 className="border-white text-black hover:bg-white hover:text-black transition"
                 onClick={() => signOut()}
               >
+                <LogOut className="w-4 h-4 mr-2" />
                 Logout
               </Button>
             </>
