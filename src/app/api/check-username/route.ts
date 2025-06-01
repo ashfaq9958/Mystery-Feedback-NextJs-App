@@ -61,7 +61,7 @@ export async function GET(request: Request) {
     return NextResponse.json(
       {
         success: true,
-        message: "Great! This username is available for registration.",
+        message: "Username is available",
       },
       { status: 200 }
     );  

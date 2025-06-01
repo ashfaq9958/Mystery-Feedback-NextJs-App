@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
+import { LoaderCircle } from "lucide-react";
 
 const SignUpPage = () => {
   const router = useRouter();
@@ -78,8 +78,9 @@ const SignUpPage = () => {
 
     try {
       const response = await axios.post<ApiResponse>("/api/signup", formData);
-      toast.success(response.data.message);
-      router.replace(`/verify-code/${formData.username}`);
+      // toast.success(response.data.message);
+      toast(response.data.message);
+      router.replace(`/verify/${formData.username}`);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
       toast.error(axiosError.response?.data?.message || "Signup failed");
@@ -125,10 +126,7 @@ const SignUpPage = () => {
                   </FormControl>
                   {isCheckingUsername && (
                     <div className="flex items-center gap-2 mt-1 text-sm text-black">
-                      <span className="relative flex h-4 w-4">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-black opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-4 w-4 bg-black"></span>
-                      </span>
+                      <LoaderCircle className="h-4 w-4 animate-spin text-black" />
                       Checking availability...
                     </div>
                   )}
@@ -138,8 +136,7 @@ const SignUpPage = () => {
                     field.value && (
                       <p
                         className={`text-sm mt-1 ${
-                          usernameStatusMessage ===
-                          "Great! This username is available for registration."
+                          usernameStatusMessage === "Username is available"
                             ? "text-green-600"
                             : "text-red-500"
                         }`}
@@ -204,7 +201,7 @@ const SignUpPage = () => {
             >
               {isSubmittingForm ? (
                 <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
                   Creating...
                 </>
               ) : (

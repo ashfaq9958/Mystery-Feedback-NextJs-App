@@ -30,7 +30,7 @@ export async function POST(request: Request) {
     }
 
     // If user has disabled receiving messages
-    if (!user.isAcceptingMessage) {
+    if (!user.isAcceptingMessages) {
       return Response.json(
         { success: false, message: "This user is not accepting messages." },
         { status: 403 }

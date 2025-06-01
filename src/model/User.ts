@@ -3,23 +3,21 @@ import mongoose, { Schema } from "mongoose";
 export interface IMessage {
   content: string;
   createdAt: Date;
+  _id?: string;
 }
 
-const MessageSchema = new Schema<IMessage>(
-  {
-    content: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    createdAt: {
-      type: Date,
-      required: true,
-      default: Date.now,
-    },
+const MessageSchema = new Schema<IMessage>({
+  content: {
+    type: String,
+    required: true,
+    trim: true,
   },
-  { _id: false }
-);
+  createdAt: {
+    type: Date,
+    required: true,
+    default: Date.now,
+  },
+});
 
 export interface IUser {
   username: string;
@@ -28,7 +26,7 @@ export interface IUser {
   verifyCode: string;
   verifyCodeExpiry: Date;
   isVerified: boolean;
-  isAcceptingMessage: boolean;
+  isAcceptingMessages: boolean;
   messages: IMessage[];
 }
 
@@ -65,7 +63,7 @@ const UserSchema = new Schema<IUser>(
       type: Boolean,
       default: false,
     },
-    isAcceptingMessage: {
+    isAcceptingMessages: {
       type: Boolean,
       default: true,
     },
