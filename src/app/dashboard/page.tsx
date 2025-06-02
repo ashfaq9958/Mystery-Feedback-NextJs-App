@@ -33,7 +33,7 @@ const DashboardPage = () => {
   });
 
   const { register, watch, setValue } = form;
-  const acceptMessages = watch("acceptMessages");
+  const isAcceptingMessages = watch("isAcceptingMessages");
 
   const handleDeleteMessage = (messageId: string) => {
     setMessages((prevMessages) =>
@@ -45,7 +45,7 @@ const DashboardPage = () => {
     setIsToggleLoading(true);
     try {
       const response = await axios.get<ApiResponse>("/api/accept-messages");
-      setValue("acceptMessages", response.data.isAcceptingMessages);
+      setValue("isAcceptingMessages", response.data.isAcceptingMessages);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
       toast.error(
@@ -83,18 +83,13 @@ const DashboardPage = () => {
     [setMessages]
   );
 
-  useEffect(() => {
-    if (!session?.user) return;
-    fetchMessages();
-    fetchAcceptMessageSetting();
-  }, [session, fetchMessages, fetchAcceptMessageSetting]);
-
   const handleToggleAcceptMessages = async () => {
     try {
+      // console.log(acceptMessages)
       const response = await axios.post<ApiResponse>("/api/accept-messages", {
-        acceptMessages: !acceptMessages,
-      });
-      setValue("acceptMessages", !acceptMessages);
+        acceptMessages: !isAcceptingMessages,
+      }); 
+      setValue("isAcceptingMessages", !isAcceptingMessages);
       toast.success(response.data.message);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
@@ -105,6 +100,12 @@ const DashboardPage = () => {
       });
     }
   };
+
+  useEffect(() => {
+    if (!session?.user) return;
+    fetchMessages();
+    fetchAcceptMessageSetting();
+  }, [session, fetchMessages, fetchAcceptMessageSetting]);
 
   if (!session || !session.user) {
     return (
@@ -135,7 +136,7 @@ const DashboardPage = () => {
     toast.success("Profile link copied to clipboard.");
   };
 
-  console.log(messages)
+  console.log(messages);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -202,8 +203,8 @@ const DashboardPage = () => {
                   </p>
                 </div>
                 <Switch
-                  {...register("acceptMessages")}
-                  checked={acceptMessages}
+                  {...register("isAcceptingMessages")}
+                  checked={isAcceptingMessages}
                   onCheckedChange={handleToggleAcceptMessages}
                   disabled={isToggleLoading}
                 />
@@ -238,7 +239,7 @@ const DashboardPage = () => {
                 </Button>
               </div>
             </CardHeader>
-          <CardContent>
+            <CardContent>
               {isMessageLoading && messages.length === 0 ? (
                 <div className="flex items-center justify-center py-12">
                   <Loader2 className="h-6 w-6 animate-spin text-gray-400" />

@@ -45,7 +45,11 @@ const SigninPage = () => {
 
       if (result?.error) {
         toast.error("Login failed", {
-          description: "Invalid username or password.",
+          description: (
+            <span className="text-red-600 dark:text-red-300">
+              Invalid username or password.
+            </span>
+          ),
         });
         return;
       }
