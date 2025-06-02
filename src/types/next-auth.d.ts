@@ -7,6 +7,7 @@ declare module "next-auth" {
       isVerified?: boolean;
       isAcceptingMessages?: boolean;
       username?: string;
+      email?: string;
     } & DefaultSession["user"];
   }
 

@@ -37,6 +37,7 @@ const VerifyPage = () => {
         username: params.username,
         code: formData.code,
       });
+      console.log(response);
       toast.success("Verification successful!");
       router.replace("/sign-in");
     } catch (error) {
@@ -102,7 +103,7 @@ const VerifyPage = () => {
 
         {/* Footer */}
         <div className="text-center mt-6 text-sm text-gray-500">
-          Didn't receive the code?{" "}
+          Didn't receive the code?
           <button
             type="button"
             onClick={() => toast.info("Resend functionality coming soon.")}

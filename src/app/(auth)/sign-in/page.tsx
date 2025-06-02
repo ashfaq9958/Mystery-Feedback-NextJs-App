@@ -59,6 +59,7 @@ const SigninPage = () => {
         router.replace("/dashboard");
       }
     } catch (error) {
+      console.log(error)
       toast.error("Something went wrong. Please try again.");
     } finally {
       setIsSubmitting(false);
