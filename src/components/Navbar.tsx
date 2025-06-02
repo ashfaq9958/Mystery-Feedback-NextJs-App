@@ -44,7 +44,7 @@ const Navbar = () => {
               </span>
               <Button
                 variant="outline"
-                className="border-white text-black hover:bg-white hover:text-black transition"
+                className="border-white text-black hover:bg-white hover:text-black transition cursor-pointer"
                 onClick={() => signOut()}
               >
                 <LogOut className="w-4 h-4 mr-2" />

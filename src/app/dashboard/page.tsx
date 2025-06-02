@@ -132,10 +132,10 @@ const DashboardPage = () => {
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(profileUrl);
-    toast.success("Copied Successfully", {
-      description: "The profile link has been copied to your clipboard.",
-    });
+    toast.success("Profile link copied to clipboard.");
   };
+
+  console.log(messages)
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -238,7 +238,7 @@ const DashboardPage = () => {
                 </Button>
               </div>
             </CardHeader>
-            <CardContent>
+          <CardContent>
               {isMessageLoading && messages.length === 0 ? (
                 <div className="flex items-center justify-center py-12">
                   <Loader2 className="h-6 w-6 animate-spin text-gray-400" />
